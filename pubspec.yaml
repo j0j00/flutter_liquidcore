@@ -1,0 +1,24 @@
+name: flutter_liquidcore
+description: Node.js virtual machine for Android and iOS.
+version: 0.0.1
+author: j0j00 <jojodev@protonmail.com>
+homepage: https://github.com/j0j00/flutter_liquidcore
+
+dependencies:
+  flutter:
+    sdk: flutter
+  uuid: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_driver:
+    sdk: flutter
+
+flutter:
+  plugin:
+    androidPackage: io.jojodev.flutter.liquidcore
+    pluginClass: LiquidcorePlugin
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
