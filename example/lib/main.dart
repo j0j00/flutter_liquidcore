@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_liquidcore/liquidcore.dart';
 
 void main() {
-  enableLiquidCoreLogging = true;
+  //enableLiquidCoreLogging = true;
   runApp(MyApp());
 }
 
@@ -63,8 +63,9 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     if (_microService != null) {
-      // Free up the resources.
-      _microService.exitProcess(0);
+      // Exit and free up the resources.
+      // _microService.exitProcess(0); // This API call might not always be available.
+      _microService.emit('exit');
     }
     if (_jsContext != null) {
       // Free up the context resources.
@@ -74,7 +75,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _initializeJsContext() async {
-    if (Platform.isAndroid) {
       // Platform messages may fail, so we use a try/catch PlatformException.
       try {
         if (_jsContext == null) {
@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
           number: 1,
           string: 'string',
           date: new Date(),
-          array: [1, 'string', null, undefined], 
+          array: [1, 'string', null, undefined],
           func: function () {}
         };
         var a = 10;
@@ -118,6 +118,7 @@ class _MyAppState extends State<MyApp> {
 
           // Add factorial function.
           await _jsContext.setProperty("factorial", (double x) {
+            print("factorial($x)");
             int factorial = 1;
             for (; x > 1; x--) {
               factorial *= x.toInt();
@@ -130,6 +131,7 @@ class _MyAppState extends State<MyApp> {
           await _jsContext.setProperty("factorialThen",
               (double factorial) async {
             var f = await _jsContext.property("f");
+            print("factorialThen($f) = $factorial");
             _setJsContextResponse(
                 "Factorial of ${f.toInt()} = ${factorial.toInt()} !");
 
@@ -157,21 +159,17 @@ class _MyAppState extends State<MyApp> {
       } on PlatformException {
         _setJsContextResponse('Failed to get factorial from Javascript. $e');
       }
-    } else {
-      _setJsContextResponse('JSContext is only supported on Android.');
-    }
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   initMicroService() async {
     if (_microService == null) {
       String uri;
-      if (Platform.isAndroid) {
-        // Android doesn't allow dashes in the res/raw directory.
-        uri = "android.resource://io.jojodev.flutter.liquidcoreexample/raw/liquidcore_sample";
-      } else {
-        uri = "Resources/liquidcore_sample";
-      }
+
+      // Android doesn't allow dashes in the res/raw directory.
+      //uri = "android.resource://io.jojodev.flutter.liquidcoreexample/raw/liquidcore_sample";
+      uri = "@flutter_assets/Resources/liquidcore_sample.js";
+      //uri = "https://raw.githubusercontent.com/j0j00/flutter_liquidcore/master/example/ios/Resources/liquidcore_sample.js";
 
       _microService = new MicroService(uri);
       await _microService.addEventListener('ready',
@@ -190,6 +188,14 @@ class _MyAppState extends State<MyApp> {
 
         _setMicroServiceResponse(eventPayload['message']);
       });
+      await _microService.addEventListener('object',
+          (service, event, eventPayload) {
+        if (!mounted) {
+          return;
+        }
+
+        print("received obj: $eventPayload | type: ${eventPayload.runtimeType}");
+      });
 
       // Start the service.
       await _microService.start();
@@ -206,6 +212,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   _setMicroServiceResponse(message) {
+    if (!mounted) {
+      print("microService: widget not mounted");
+      return;
+    }
+
     setState(() {
       _microServiceResponse = message;
     });
@@ -215,7 +226,10 @@ class _MyAppState extends State<MyApp> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      print("jsContext: widget not mounted");
+      return;
+    }
 
     setState(() {
       _jsContextResponse = value;

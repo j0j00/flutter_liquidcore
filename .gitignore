@@ -15,6 +15,7 @@ doc/api/
 # Extras
 lib/generated/i18n.dart
 .DS_Store
+.gradle
 
 # ide
 .idea/

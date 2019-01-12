@@ -33,11 +33,14 @@ class MicroService {
 
   /// Creates a new MicroService instance.
   /// [uri] The URI (can be a network URL or local file/resource) of the MicroService code.
-  ///   For Android: This is usually in one of the following formats:
+  ///
+  /// Example local file URIs are as follows:
+  ///   Flutter asset: '@flutter_assets/path/to/asset.js'
+  ///   Raw Android assets:
   ///     - 'android.resource://$android_package_name$/raw/script' (without the .js extension)
   ///     - 'file:///android_asset/script.js'
-  ///   For iOS: This is usually in the format:
-  ///     - 'Resources/script' (without the .js extension)
+  ///   Raw iOS bundle resource formats:
+  ///     - 'Resources/script.js'
   MicroService(String uri,
       [OnStartListener _onStartListener,
       OnErrorListener _onErrorListener,
@@ -171,7 +174,7 @@ class MicroService {
           break;
         case 'listener.onEvent':
           String event = value['event'];
-          Map payload = value['payload'];
+          dynamic payload = value['payload'];
           var listeners = microService._eventListeners[event];
           if (listeners != null) {
             // Notify the listeners.
@@ -183,8 +186,9 @@ class MicroService {
         default:
           liquidcoreLog('Unknown method called ${call.method}!');
       }
-    } catch (e) {
+    } catch (e, stacktrace) {
       print("Unexpected error occurred: $e");
+      print('Stack trace:\n $stacktrace');
       rethrow;
     }
   }

@@ -1,1 +1,4 @@
-rootProject.name = 'liquidcore'
+rootProject.name = 'flutter_liquidcore'
+
+// Attempt to use a local version of LiquidcoreAndroid.
+apply from: 'settings_liquidcore_import.gradle'

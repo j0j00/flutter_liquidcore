@@ -52,13 +52,7 @@ class JSContext {
   String _instanceId;
   var _jsFunctions = new Map<String, Function>();
 
-  /// This only works on Android, as the JSContext interface isn't available
-  /// on the iOS version of the LiquidCore library.
   JSContext() {
-    if (!Platform.isAndroid) {
-      throw UnsupportedError(
-          "The JSContext functionality is only supported on Android devices.");
-    }
     _instanceId = _uuid.v4();
     _instances[_instanceId] = this;
   }

@@ -13,3 +13,6 @@ plugins.each { name, path ->
     include ":$name"
     project(":$name").projectDir = pluginDirectory
 }
+
+// Attempt to use a local version of LiquidcoreAndroid.
+apply from: '../../android/settings_liquidcore_import.gradle'

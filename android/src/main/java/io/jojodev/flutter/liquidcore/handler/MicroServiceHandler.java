@@ -1,6 +1,9 @@
 package io.jojodev.flutter.liquidcore.handler;
 
+import android.content.Context;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.liquidplayer.service.MicroService;
 
@@ -127,7 +130,11 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
         synchronized (microServicesMapLocker) {
             WrappedMicroService service;
             if (!microServices.containsKey(serviceId)) {
-                service = new WrappedMicroService(registrar.context(), uri, new MicroServiceListener(serviceId));
+                Context context = registrar.context();
+                if (uri.startsWith("@flutter_assets/")) {
+                    uri = "file:///android_asset/" + registrar.lookupKeyForAsset(uri.substring(16));
+                }
+                service = new WrappedMicroService(context, uri, new MicroServiceListener(serviceId));
                 microServices.put(serviceId, service);
             } else {
                 service = microServices.get(serviceId);
@@ -161,7 +168,6 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
         @Override
         public void onError(MicroService service, Exception e) {
             if (microServiceMethodChannel != null) {
-
                 microServiceMethodChannel.invokeMethod("listener.onError", buildArguments(serviceId, e));
             }
         }
@@ -180,9 +186,23 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
         @Override
         public void onEvent(String event, JSONObject payload) {
             if (microServiceMethodChannel != null) {
+                Object payloadObject = null;
+                if (payload != null) {
+                    if (payload.length() == 1 && payload.has("_")) {
+                        // This is a simple primitive type, extract it.
+                        try {
+                            payloadObject = JSONUtil.unwrap(payload.get("_"));
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else {
+                        payloadObject = JSONUtil.unwrap(payload);
+                    }
+                }
+
                 Map<String, Object> map = new HashMap<>();
                 map.put("event", event);
-                map.put("payload", JSONUtil.unwrap(payload));
+                map.put("payload", payloadObject);
                 microServiceMethodChannel.invokeMethod("listener.onEvent", buildArguments(serviceId, map));
             }
         }
