@@ -11,6 +11,7 @@ Node.js virtual machine for Android and iOS using the amazing https://github.com
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
+  s.dependency 'LiquidCore'
   s.dependency 'Flutter'
 
   s.ios.deployment_target = '8.0'
