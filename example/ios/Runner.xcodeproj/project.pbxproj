@@ -364,7 +364,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/flutter_liquidcore\"",
 					"\"${PODS_ROOT}/../.symlinks/flutter/ios-release\"",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -374,8 +373,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**";
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -394,14 +394,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.dart.liquidcoreExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -446,7 +444,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/flutter_liquidcore\"",
 					"\"${PODS_ROOT}/../.symlinks/flutter/ios-release\"",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -462,8 +459,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**";
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -507,7 +505,6 @@
 					"$(inherited)",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/flutter_liquidcore\"",
 					"\"${PODS_ROOT}/../.symlinks/flutter/ios-release\"",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -517,8 +514,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LIBRARY_SEARCH_PATHS = "\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**";
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -539,14 +537,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.dart.liquidcoreExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -570,14 +566,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
-					"\"/Users/j0j00/Documents/flutter_liquidcore/ios/Carthage/Build/iOS/LiquidCore.framework\"/**",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.dart.liquidcoreExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

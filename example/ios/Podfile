@@ -61,7 +61,10 @@ target 'Runner' do
     pod p[:name], :path => File.join(symlink, 'ios')
   }
 
-  pod 'LiquidCore', :path => '/Users/j0j00/Documents/LiquidCore/LiquidCore.podspec'
+  # Declare the LiquidCore pod source here until it has been published to CocoaPods.
+  #pod 'LiquidCore', :path => ENV['HOME'] + '/Documents/LiquidCore/LiquidCore.podspec', :testspecs => ['Tests']
+  #pod 'LiquidCore', :path => ENV['HOME'] + '/Documents/LiquidCore/LiquidCore.podspec'
+  pod 'LiquidCore', :git => 'https://github.com/j0j00/LiquidCore.git', :branch => 'podspec-cleanup'
 end
 
 post_install do |installer|

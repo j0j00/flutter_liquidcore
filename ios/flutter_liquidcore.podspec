@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_liquidcore'
-  s.version          = '0.0.1'
+  s.version          = '0.6.0'
   s.summary          = 'Node.js virtual machine for Android and iOS'
   s.description      = <<-DESC
 Node.js virtual machine for Android and iOS using the amazing https://github.com/LiquidPlayer/LiquidCore library.
@@ -14,6 +14,5 @@ Node.js virtual machine for Android and iOS using the amazing https://github.com
   s.dependency 'LiquidCore'
   s.dependency 'Flutter'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
 end
-
