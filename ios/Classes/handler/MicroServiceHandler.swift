@@ -27,7 +27,12 @@ public class MicroServiceHandler : NSObject, FlutterPlugin {
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        handleMethodCall(call, result)
+        do {
+            try handleMethodCall(call, result)
+        } catch {
+            print(Thread.callStackSymbols)
+            result(FlutterError(code: "exception", message: error.localizedDescription, details: SwiftLiquidcorePlugin.convertToDartObject(error)))
+        }
     }
     
     private func normalizeUrl(_ uri: String) -> URL {
@@ -50,7 +55,7 @@ public class MicroServiceHandler : NSObject, FlutterPlugin {
         return URL(fileURLWithPath: filePath)
     }
 
-    private func handleMethodCall(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+    private func handleMethodCall(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) throws {
         let args = call.arguments
         if ("devServer" == call.method) {
             var argsDict = args as! Dictionary<String, Any>

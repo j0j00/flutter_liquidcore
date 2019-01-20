@@ -34,7 +34,7 @@ public class JsContextHandler : NSObject, FlutterPlugin, FlutterStreamHandler {
         }
     }
 
-    private func handleMethodCall(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) {
+    private func handleMethodCall(_ call: FlutterMethodCall, _ result: @escaping FlutterResult) throws {
         let args = call.arguments
         let argsDict:Dictionary<String, Any> = args as! Dictionary<String, Any>
         let contextId : String = argsDict["contextId"] as! String
