@@ -14,6 +14,7 @@ import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.jojodev.flutter.liquidcore.BuildConfig;
 import io.jojodev.flutter.liquidcore.LiquidcorePlugin;
 import io.jojodev.flutter.liquidcore.components.WrappedJSContext;
 
@@ -47,7 +48,10 @@ public class JsContextHandler implements MethodChannel.MethodCallHandler, EventC
         try {
             handleMethodCall(methodCall, result);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) {
+                // Only print error stack trace in debug mode.
+                e.printStackTrace();
+            }
             result.error("exception", e.toString(), LiquidcorePlugin.convertToDartObject(e));
         }
     }
