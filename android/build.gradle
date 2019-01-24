@@ -49,7 +49,7 @@ android {
             //compileOnly 'com.github.LiquidPlayer:LiquidCore:0.5.1'
             api project(':LiquidCoreAndroid')
         } else {
-            api 'com.github.LiquidPlayer:LiquidCore:0.5.1'
+            api 'com.github.LiquidPlayer:LiquidCore:ee0e82a9fb'
         }
     }
 }
