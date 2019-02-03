@@ -46,10 +46,10 @@ android {
 
         if (liquidCoreAndroidDir != null) {
             // Use local LiquidCore library.
-            //compileOnly 'com.github.LiquidPlayer:LiquidCore:0.5.1'
+            //compileOnly 'com.github.LiquidPlayer:LiquidCore:0.6.0-pre1'
             api project(':LiquidCoreAndroid')
         } else {
-            api 'com.github.LiquidPlayer:LiquidCore:ee0e82a9fb'
+            api 'com.github.LiquidPlayer:LiquidCore:0.6.0-pre1'
         }
     }
 }

@@ -61,7 +61,7 @@ public class MicroServiceHandler : NSObject, FlutterPlugin {
             var argsDict = args as! Dictionary<String, Any>
             let filename : String = argsDict["filename"] as! String
             let port : NSNumber = argsDict["port"] as! NSNumber
-            result(LCMicroService.devServer(filename, port: port)?.absoluteString)
+            result(LCMicroService.devServer(filename, port: port).absoluteString)
             return
         } else if ("uninstall" == call.method) {
             LCMicroService.uninstall(normalizeUrl(args as! String))
