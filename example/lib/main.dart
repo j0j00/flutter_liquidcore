@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -162,7 +160,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-  initMicroService() async {
+  void initMicroService() async {
     if (_microService == null) {
       String uri;
 
@@ -206,12 +204,12 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  _emit() async {
+  void _emit() async {
     // Send the name over to the MicroService.
     await _microService.emit('ping', 'World ${++_microServiceWorld}');
   }
 
-  _setMicroServiceResponse(message) {
+  void _setMicroServiceResponse(message) {
     if (!mounted) {
       print("microService: widget not mounted");
       return;
@@ -222,7 +220,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  _setJsContextResponse(value) {
+  void _setJsContextResponse(value) {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.

@@ -2,7 +2,7 @@ name: flutter_liquidcore
 description: Node.js virtual machine for Android and iOS.
 
    It basically provides you with a way to execute and evaluate Javascript inside Flutter on Android/iOS.
-version: 0.6.0
+version: 0.6.0+1
 author: j0j00 <jojodev@protonmail.com>
 homepage: https://github.com/j0j00/flutter_liquidcore
 

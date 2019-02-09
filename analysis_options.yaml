@@ -1,0 +1,40 @@
+analyzer:
+  strong-mode:
+    implicit-casts: true
+  errors:
+    todo: ignore
+  exclude:
+    - flutter/**
+    - lib/api/*.dart
+    - lib/generated/*.dart
+
+linter:
+  rules:
+    - cancel_subscriptions
+    - close_sinks
+    - unnecessary_const
+    - always_declare_return_types
+    - camel_case_types
+    - empty_constructor_bodies
+    - annotate_overrides
+    - one_member_abstracts
+    - slash_for_doc_comments
+    - unnecessary_brace_in_string_interps
+    #- constant_identifier_names
+    # Based off https://github.com/dart-lang/pedantic/blob/master/lib/analysis_options.yaml
+    - avoid_empty_else
+    - avoid_init_to_null
+    - avoid_relative_lib_imports
+    - avoid_return_types_on_setters
+    - avoid_types_as_parameter_names
+    - no_duplicate_case_values
+    - null_closures
+    - prefer_contains
+    - prefer_equal_for_default_values
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - recursive_getters
+    - unrelated_type_equality_checks
+    - use_rethrow_when_possible
+    - unawaited_futures
+    - valid_regexps
