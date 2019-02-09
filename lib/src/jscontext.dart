@@ -16,7 +16,8 @@ class JSException implements Exception {
   JSException(this.message, this.exceptionType, this.stackTraceString);
 
   @override
-  String toString() => 'JSException($message, $exceptionType)\n[\n$stackTraceString]';
+  String toString() =>
+      'JSException($message, $exceptionType)\n[\n$stackTraceString]';
 }
 
 /// Extremely basic interface for a native Javascript context.

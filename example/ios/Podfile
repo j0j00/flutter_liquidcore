@@ -61,10 +61,10 @@ target 'Runner' do
     pod p[:name], :path => File.join(symlink, 'ios')
   }
 
-  # Declare the LiquidCore pod source here until it has been published to CocoaPods.
+  # Declare your LiquidCore pod source here if your required changes aren't available in the main repo.
   #pod 'LiquidCore', :path => ENV['HOME'] + '/Documents/LiquidCore/LiquidCore.podspec', :testspecs => ['Tests']
   #pod 'LiquidCore', :path => ENV['HOME'] + '/Documents/LiquidCore/LiquidCore.podspec'
-  pod 'LiquidCore', :git => 'https://github.com/LiquidPlayer/LiquidCore.git', :tag => '0.6.0-pre1'
+  #pod 'LiquidCore', :git => 'https://github.com/LiquidPlayer/LiquidCore.git', :tag => '0.6.0-pre1'
 end
 
 post_install do |installer|
