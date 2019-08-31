@@ -9,7 +9,7 @@ homepage: https://github.com/j0j00/flutter_liquidcore
 dependencies:
   flutter:
     sdk: flutter
-  uuid: ^2.0.0
+  uuid: ^2.0.2
 
 dev_dependencies:
   flutter_test:
