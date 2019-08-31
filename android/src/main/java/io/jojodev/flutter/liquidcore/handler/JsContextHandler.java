@@ -1,7 +1,5 @@
 package io.jojodev.flutter.liquidcore.handler;
 
-import android.support.annotation.Nullable;
-
 import org.liquidplayer.javascript.JSContext;
 import org.liquidplayer.javascript.JSException;
 import org.liquidplayer.javascript.JSFunction;
@@ -10,6 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.annotation.Nullable;
 import io.flutter.plugin.common.EventChannel;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
