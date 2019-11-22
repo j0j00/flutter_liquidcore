@@ -88,7 +88,7 @@ class MicroService {
   Future<bool> removeEventListener(String event, EventListener listener) async {
     var listeners = _eventListeners[event];
     if (listeners != null) {
-      var status = await _invokeMethod('removeEventListener', {'event': event});
+      var status = await _invokeMethod('removeEventListener', {'event': event}) as bool;
       var removed = listeners.remove(listener);
       if (listeners.isEmpty) {
         _eventListeners.remove(event);
@@ -115,7 +115,7 @@ class MicroService {
 
   /// Get the internal MicroService id.
   Future<String> getMicroServiceId() async {
-    return _invokeMethod('getId');
+    return await _invokeMethod('getId') as String;
   }
 
   /// Send a message over to the native implementation.
@@ -144,7 +144,7 @@ class MicroService {
   static Future<void> _platformCallHandler(MethodCall call) async {
     liquidcoreLog('_platformCallHandler call ${call.method} ${call.arguments}');
     var arguments = (call.arguments as Map);
-    String serviceId = arguments['serviceId'];
+    String serviceId = arguments['serviceId'] as String;
     MicroService microService = _instances[serviceId];
     if (microService == null) {
       print("MicroService $serviceId was not found!");
@@ -169,11 +169,11 @@ class MicroService {
         case 'listener.onExit':
           microService._hasExit = true;
           if (microService._onExitListener != null) {
-            microService._onExitListener(microService, value);
+            microService._onExitListener(microService, value as int);
           }
           break;
         case 'listener.onEvent':
-          String event = value['event'];
+          String event = value['event'] as String;
           dynamic payload = value['payload'];
           var listeners = microService._eventListeners[event];
           if (listeners != null) {
