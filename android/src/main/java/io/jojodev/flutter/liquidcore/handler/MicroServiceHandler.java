@@ -150,6 +150,17 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
         return result;
     }
 
+    private void invokeMicroServiceMethod(final String method, final Object arguments) {
+        if (microServiceMethodChannel != null) {
+            registrar.activity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    microServiceMethodChannel.invokeMethod(method, arguments);
+                }
+            });
+        }
+    }
+
     private class MicroServiceListener implements IMicroServiceListener {
 
         private String serviceId;
@@ -160,23 +171,17 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
 
         @Override
         public void onStart(MicroService service) {
-            if (microServiceMethodChannel != null) {
-                microServiceMethodChannel.invokeMethod("listener.onStart", buildArguments(serviceId, null));
-            }
+            invokeMicroServiceMethod("listener.onStart", buildArguments(serviceId, null));
         }
 
         @Override
         public void onError(MicroService service, Exception e) {
-            if (microServiceMethodChannel != null) {
-                microServiceMethodChannel.invokeMethod("listener.onError", buildArguments(serviceId, e));
-            }
+            invokeMicroServiceMethod("listener.onError", buildArguments(serviceId, e));
         }
 
         @Override
         public void onExit(MicroService service, Integer exitCode) {
-            if (microServiceMethodChannel != null) {
-                microServiceMethodChannel.invokeMethod("listener.onExit", buildArguments(serviceId, exitCode));
-            }
+            invokeMicroServiceMethod("listener.onExit", buildArguments(serviceId, exitCode));
             synchronized (microServicesMapLocker) {
                 // Remove the service instance.
                 microServices.remove(serviceId);
@@ -203,7 +208,7 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
                 Map<String, Object> map = new HashMap<>();
                 map.put("event", event);
                 map.put("payload", payloadObject);
-                microServiceMethodChannel.invokeMethod("listener.onEvent", buildArguments(serviceId, map));
+                invokeMicroServiceMethod("listener.onEvent", buildArguments(serviceId, map));
             }
         }
     }
