@@ -73,7 +73,7 @@ class JSContext {
     };
     if (value is Function) {
       var functionId = _uuid.v4();
-      _jsFunctions[functionId] = value;
+      _jsFunctions[functionId] = value as Function;
       value = functionId;
       arguments['type'] = 'function';
       arguments['value'] = functionId;
@@ -93,22 +93,22 @@ class JSContext {
   }
 
   /// Whether the current context contains a property [prop].
-  Future<bool> hasProperty(String prop) {
-    return _invokeMethod("hasProperty", {
+  Future<bool> hasProperty(String prop) async {
+    return await _invokeMethod("hasProperty", {
       'prop': prop,
-    });
+    }) as bool;
   }
 
   /// Returns true if the property was deleted.
-  Future<bool> deleteProperty(String prop) {
-    return _invokeMethod("deleteProperty", {
+  Future<bool> deleteProperty(String prop) async {
+    return await _invokeMethod("deleteProperty", {
       'prop': prop,
-    });
+    }) as bool;
   }
 
   /// Free up the context resources.
-  Future<bool> cleanUp() {
-    return _invokeMethod("cleanUp");
+  Future<bool> cleanUp() async {
+    return await _invokeMethod("cleanUp") as bool;
   }
 
   /// Executes the JavaScript code in [script] in this context
@@ -135,7 +135,7 @@ class JSContext {
       _jsContextExceptionSubscription =
           _jsContextExceptionChannel.receiveBroadcastStream().listen((error) {
         if (_exceptionHandler != null) {
-          _exceptionHandler(error);
+          _exceptionHandler(error as String);
         }
       });
     }
@@ -170,7 +170,7 @@ class JSContext {
       if (value['__dart_liquidcore_type__'] == 'function') {
         return _jsFunctions[value['__dart_liquidcore_ref__']];
       } else if (value['__dart_liquidcore_type__'] == 'exception') {
-        return JSException(value['message'], value['type'], value['stack']);
+        return JSException(value['message'] as String, value['type'] as String, value['stack'] as String);
       }
     }
 
@@ -180,7 +180,7 @@ class JSContext {
   static Future<dynamic> _platformCallHandler(MethodCall call) async {
     liquidcoreLog('_platformCallHandler call ${call.method} ${call.arguments}');
     var arguments = (call.arguments as Map);
-    String contextId = arguments['contextId'];
+    String contextId = arguments['contextId'] as String;
     JSContext instance = _instances[contextId];
     if (instance == null) {
       liquidcoreLog("jsContext $contextId was not found!");
@@ -190,7 +190,7 @@ class JSContext {
     switch (call.method) {
       case 'dynamicFunction':
         var functionId = arguments['functionId'];
-        List args = value;
+        List args = value as List;
         var func = instance._jsFunctions[functionId];
         if (func != null) {
           var decodedArgs =

@@ -184,7 +184,7 @@ class _MyAppState extends State<MyApp> {
           return;
         }
 
-        _setMicroServiceResponse(eventPayload['message']);
+        _setMicroServiceResponse(eventPayload['message'] as String);
       });
       await _microService.addEventListener('object',
           (service, event, eventPayload) {
@@ -209,7 +209,7 @@ class _MyAppState extends State<MyApp> {
     await _microService.emit('ping', 'World ${++_microServiceWorld}');
   }
 
-  void _setMicroServiceResponse(message) {
+  void _setMicroServiceResponse(String message) {
     if (!mounted) {
       print("microService: widget not mounted");
       return;
@@ -220,7 +220,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _setJsContextResponse(value) {
+  void _setJsContextResponse(String value) {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
