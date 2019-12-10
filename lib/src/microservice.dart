@@ -88,7 +88,8 @@ class MicroService {
   Future<bool> removeEventListener(String event, EventListener listener) async {
     var listeners = _eventListeners[event];
     if (listeners != null) {
-      var status = await _invokeMethod('removeEventListener', {'event': event}) as bool;
+      var status =
+          await _invokeMethod('removeEventListener', {'event': event}) as bool;
       var removed = listeners.remove(listener);
       if (listeners.isEmpty) {
         _eventListeners.remove(event);

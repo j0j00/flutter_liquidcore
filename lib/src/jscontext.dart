@@ -170,7 +170,8 @@ class JSContext {
       if (value['__dart_liquidcore_type__'] == 'function') {
         return _jsFunctions[value['__dart_liquidcore_ref__']];
       } else if (value['__dart_liquidcore_type__'] == 'exception') {
-        return JSException(value['message'] as String, value['type'] as String, value['stack'] as String);
+        return JSException(value['message'] as String, value['type'] as String,
+            value['stack'] as String);
       }
     }
 
