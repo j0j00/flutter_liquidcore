@@ -1,7 +1,14 @@
 package io.jojodev.flutter.liquidcore.handler;
 
 import android.content.Context;
-
+import android.os.Handler;
+import android.os.Looper;
+import io.flutter.plugin.common.JSONUtil;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.PluginRegistry;
+import io.jojodev.flutter.liquidcore.LiquidcorePlugin;
+import io.jojodev.flutter.liquidcore.components.WrappedMicroService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,13 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.flutter.plugin.common.JSONUtil;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry;
-import io.jojodev.flutter.liquidcore.LiquidcorePlugin;
-import io.jojodev.flutter.liquidcore.components.WrappedMicroService;
-
 public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
 
     private static MethodChannel microServiceMethodChannel;
@@ -28,9 +28,11 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
     private final Object microServicesMapLocker = new Object();
 
     private final PluginRegistry.Registrar registrar;
+    private final Handler platformThreadHandler;
 
     private MicroServiceHandler(PluginRegistry.Registrar registrar) {
         this.registrar = registrar;
+        this.platformThreadHandler = new Handler(registrar.context().getMainLooper());
     }
 
     /**
@@ -151,13 +153,23 @@ public class MicroServiceHandler implements MethodChannel.MethodCallHandler {
     }
 
     private void invokeMicroServiceMethod(final String method, final Object arguments) {
-        if (microServiceMethodChannel != null) {
-            registrar.activity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+        if (microServiceMethodChannel == null) {
+            return;
+        }
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (microServiceMethodChannel != null) {
                     microServiceMethodChannel.invokeMethod(method, arguments);
                 }
-            });
+            }
+        };
+
+        if (platformThreadHandler.getLooper() == Looper.myLooper()) {
+            runnable.run();
+        } else {
+            platformThreadHandler.post(runnable);
         }
     }
 
