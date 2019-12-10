@@ -1,3 +1,8 @@
+## 1.1.0
+
+- Don't allow implicit casts - [#6](https://github.com/j0j00/flutter_liquidcore/pull/6) (thanks [@tvh](https://github.com/tvh)!)
+- Android: Add Flutter 1.7+ support, by making all plugin invocations occur on the main thread - [#7](https://github.com/j0j00/flutter_liquidcore/pull/7) (thanks [@krista-koivisto](https://github.com/krista-koivisto)!) 
+
 ## 1.0.0
 
 - Update the `uuid` dependency from `^1.0.0` to `^2.0.2`.
