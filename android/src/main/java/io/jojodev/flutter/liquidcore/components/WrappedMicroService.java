@@ -14,15 +14,15 @@ import io.jojodev.flutter.liquidcore.handler.MicroServiceHandler;
 
 public class WrappedMicroService implements MicroService.EventListener {
     private MicroService microService;
-    private final MicroServiceHandler.IMicroServiceListener serviceStartListener;
+    private final MicroServiceHandler.IMicroServiceListener serviceListener;
     private HashMap<String, Integer> listenerCount = new HashMap<>();
 
     // List of events to add immediately before the service is executed.
     private HashSet<String> events;
     private boolean started = false;
 
-    public WrappedMicroService(Context context, String uri, MicroServiceHandler.IMicroServiceListener _serviceStartListener) {
-        serviceStartListener = _serviceStartListener;
+    public WrappedMicroService(Context context, String uri, MicroServiceHandler.IMicroServiceListener _serviceListener) {
+        serviceListener = _serviceListener;
         microService = new MicroService(context, URI.create(uri), new ServiceStartListener() {
             @Override
             public void onStart(MicroService service) {
@@ -34,7 +34,17 @@ public class WrappedMicroService implements MicroService.EventListener {
                     }
                     events = null;
                 }
-                serviceStartListener.onStart(service);
+                serviceListener.onStart(service);
+            }
+        }, new MicroService.ServiceErrorListener() {
+            @Override
+            public void onError(MicroService service, Exception e) {
+                serviceListener.onError(service, e);
+            }
+        }, new MicroService.ServiceExitListener() {
+            @Override
+            public void onExit(MicroService service, Integer exitCode) {
+                serviceListener.onExit(service, exitCode);
             }
         });
     }
@@ -76,6 +86,6 @@ public class WrappedMicroService implements MicroService.EventListener {
     }
 
     public void onEvent(MicroService service, String event, JSONObject payload) {
-        serviceStartListener.onEvent(event, payload);
+        serviceListener.onEvent(event, payload);
     }
 }
