@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Android: Implement `onError` and `onExit` Microservice handler - [#12](https://github.com/j0j00/flutter_liquidcore/pull/12) (thanks [@itome](https://github.com/itome)!)
+
 ## 1.1.0
 
 - Don't allow implicit casts - [#6](https://github.com/j0j00/flutter_liquidcore/pull/6) (thanks [@tvh](https://github.com/tvh)!)
